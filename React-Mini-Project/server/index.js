@@ -9,6 +9,41 @@ const dbService = require("./dbService");
 app.use(express.json());
 app.use(cors());
 
+app.patch("/login",async (req,res)=>{
+
+     const { username, pin} =req.body;
+
+     const db=dbService.getDbServiceInstance();
+
+     let users = [];
+  try {
+    users = await db.authenticateUser(username,pin);
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+    });
+  }
+
+  if (users.length === 0) {
+    return res.status(404).json({
+      status: "NOT_FOUND",
+      message: "user not found",
+    });
+  }
+  res.status(200).json({
+    message: "login succssful",
+    status: "SUCCESS",
+    user: users[0]
+  });
+
+
+ 
+
+
+
+
+})
+
 app.patch("/withdraw", async (req, res) => {
   const { amount, username } = req.body;
 
@@ -23,12 +58,7 @@ app.patch("/withdraw", async (req, res) => {
     });
   }
 
-  if (users.length === 0) {
-    return res.status(404).json({
-      status: "NOT_FOUND",
-      message: "user not found",
-    });
-  }
+  
 
   const user = users[0];
 

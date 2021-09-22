@@ -2,7 +2,32 @@
 
 export const APIService = {
   makeWithdraw,
+  loginUser,
 };
+
+
+function loginUser(data) {
+  const requestOptions = {
+    method: "PATCH",
+    headers: {
+           "Content-type": "application/json",
+          },
+    body: JSON.stringify(data)
+      
+        
+    
+    
+  };
+  return fetch(
+    "http://localhost:5000/login",
+    requestOptions
+  ).then(handleResponse);
+}
+
+
+
+
+
 
 function makeWithdraw(data) {
   const requestOptions = {

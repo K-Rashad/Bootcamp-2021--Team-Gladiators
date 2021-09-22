@@ -36,6 +36,21 @@ class DbService {
       console.log("error in read", error);
     }
   }
+  async authenticateUser(username,pin) {
+    try {
+      const response = await new Promise((resolve, reject) => {
+        const query = `SELECT * FROM login WHERE BINARY username='${username}' and pin='${pin}'`;
+
+        connection.query(query, (err, results) => {
+          if (err) reject(new Error(err.message));
+          resolve(results);
+        });
+      });
+      return response;
+    } catch (error) {
+      console.log("error in read", error);
+    }
+  }
 
   async getUserByUsername(username) {
     try {

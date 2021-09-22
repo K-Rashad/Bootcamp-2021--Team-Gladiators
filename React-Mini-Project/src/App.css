@@ -72,7 +72,7 @@ body {
 .container button:focus {
   outline: none;
 }
- #cs,#sectionBalance{
+ #cs1,#cs2,#sectionBalance,#sectionWithdraw{
   display: none;
 } 
  
